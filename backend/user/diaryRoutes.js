@@ -45,7 +45,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
     if (entry.userId.toString() !== req.user.id) {
       return res.status(403).send({ error: 'Unauthorized to delete this entry' });
     }
-    await entry.remove();
+    await DiaryEntry.findByIdAndDelete(id);
     res.status(200).send({ message: 'Diary entry deleted successfully' });
   } catch (error) {
     res.status(500).send({ error: error.message });

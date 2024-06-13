@@ -11,13 +11,14 @@ export default function Dashboard() {
   const [mood, setMood] = useState(3);
   const navigate = useNavigate();
   const [entries, setEntries] = useState([]);
+  const [fetcher, setFetcher] = useState(false);
   const userId = user.id;
   
-  useEffect(() => {
-    if (isLoggedIn) {
-      fetchEntries();
-    }
-  }, [isLoggedIn]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     fetchEntries();
+  //   }
+  // }, [isLoggedIn]);
 
   const fetchEntries = async () => {
     try {
@@ -37,7 +38,8 @@ export default function Dashboard() {
       const response = await axios.post('/api/diary-entries/new', newEntry);
       console.log("New entry created:", response.data);
       console.log("new post userid:",userId);
-      fetchEntries(); // Refresh entries
+      // fetchEntries(); // Refresh entries
+      setFetcher(prevFetcher => !prevFetcher);
     } catch (error) {
       console.error(error);
       if (error.response) {
@@ -107,7 +109,7 @@ export default function Dashboard() {
     </div>
     <button className="bg-secondary text-primary p-2 rounded-lg" type="submit">Save Entry</button>
   </form>
-  <DiaryEntries entries={entries} onDelete={handleDelete} />
+  <DiaryEntries entries={entries} />
   </>
 );
 }

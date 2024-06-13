@@ -34,12 +34,12 @@ const DiaryEntries = () => {
       <h1>Your Diary Entries</h1>
     <div className='flex flex-wrap justify-center gap-6 max-w-5xl h-auto m-auto mt-4'>
       {entries.map((entry) => (
-        <div className='bg-lightBabyBlue min-w-72 rounded-2xl text-left' key={entry._id}>
+        <div className='bg-lightBabyBlue min-w-72 rounded-2xl text-left p-2' key={entry._id}>
           <h2 className='font-bold text-xl'>{entry.title}</h2>
           <p>{entry.content}</p>
           <p className='bg-darkBabyBlue text-secondary py-2'>Mood: {['😞', '😕', '😐', '😊', '😁'][entry.mood - 1]}</p>
           <p>{new Date(entry.date).toLocaleString()}</p>
-              <Button variant="primary" size="small" shape="round" onClick={() => onDelete(entry._id)}>
+              <Button variant="primary" size="small" shape="round" onClick={() => deleteEntry(entry._id)}>
               🗑️
             </Button>
         </div>
