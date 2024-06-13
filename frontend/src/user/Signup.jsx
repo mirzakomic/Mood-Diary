@@ -29,10 +29,10 @@ export default function Signup() {
   };
 
   return (
-    <form onSubmit={submit}>
-      <input name="name" type="text" placeholder="Your name" />
-      <input name="email" type="text" placeholder="your email" />
-      <input name="password" type="password" placeholder="***********" />
+    <form onSubmit={submit} className="bg-paleLilac p-2 rounded-lg mt-4">
+      <input name="name" type="text" placeholder="Your name" className="bg-primary p-2 rounded-lg" />
+      <input name="email" type="text" placeholder="your email" className="bg-primary p-2 rounded-lg" />
+      <input name="password" type="password" placeholder="***********" className="bg-primary p-2 rounded-lg" />
       {error && <small style={{ color: "red" }}>{error}</small>}
       <button>Signup</button>
     </form>

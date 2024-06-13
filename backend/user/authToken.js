@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 
-// userEmailObj = {email: ""}
 export function generateAccessToken(userEmailObj, persist = false) {
   return jwt.sign(userEmailObj, process.env.TOKEN_SECRET, {
     expiresIn: persist ? "7d" : "4h",
@@ -21,9 +20,9 @@ export function authenticateToken(req, res, next) {
   if (!token) return res.sendStatus(401);
 
   jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
-    console.log(err, user);
+    console.log(err, "user info",user);
     if (err) return res.sendStatus(403);
-    req.userEmail = user.email;
+    req.user = user;
 
     next();
   });

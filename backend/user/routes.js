@@ -54,12 +54,12 @@ userRouter.post("/resetPassword-confirm", async (req, res) => {
 });
 
 userRouter.post("/signup", multerMiddleware.none(), async (req, res) => {
-  // Neuen User erstellen
+  // new user creation
   const { name, email } = req.body;
   const newUser = new User({ name, email });
-  // user.setPassword (hash und salt setzen)
+  // set password
   newUser.setPassword(req.body.password);
-  // user speichern
+  // save user
   try {
     await newUser.save();
     return res.send({
@@ -74,7 +74,7 @@ userRouter.post("/signup", multerMiddleware.none(), async (req, res) => {
       return res.status(400).send({ error: e });
     }
 
-    // Duplication Error email existiert bereits als user
+    // Duplication Error email exists as user
     if (e.name === "MongoServerError" && e.code === 11000) {
       console.log("Account exists already");
       return res.status(400).send({
@@ -88,26 +88,26 @@ userRouter.post("/signup", multerMiddleware.none(), async (req, res) => {
 
 userRouter.post("/login", multerMiddleware.none(), async (req, res) => {
   const { email, password } = req.body;
-  console.log({ email, password });
-  const user = await User.findOne({ email }).select("+hash").select("+salt");
-  // dieses password würde den gleichen hash produzieren
-  // (wie der in der Datenbank)
-  const passwordIsValid = user.verifyPassword(password);
-  if (passwordIsValid) {
-    const token = generateAccessToken({ email });
-    console.log(token);
-
-    res.cookie("auth", token, { httpOnly: true, maxAge: hoursInMillisec(4) });
-
-    res.send({ message: "Success", data: user });
-  } else {
-    res.status(404).send({
+  const user = await User.findOne({ email }).select("+hash").select("+salt").select("+name");
+  
+  // Check if user exists and password is valid
+  if (!user || !user.verifyPassword(password)) {
+    return res.status(404).send({
       message: "Failed to login",
       error: {
         message: "Password and E-Mail combination is wrong.",
       },
     });
   }
+
+  // If user exists and password is valid, generate access token
+  const token = generateAccessToken({ email, name: user.name, id:user.id });
+
+  // Set the token in the response cookie
+  res.cookie("auth", token, { httpOnly: true, maxAge: hoursInMillisec(4) });
+
+  // Send the user data back to the client, including the name
+  res.send({ message: "Success", data: { ...user.toObject(), name: user.name, id: user.id } });
 });
 
 userRouter.get("/logout", (req, res) => {
@@ -116,6 +116,14 @@ userRouter.get("/logout", (req, res) => {
 });
 
 userRouter.get("/secure", authenticateToken, async (req, res) => {
-  console.log(req.userEmail);
-  res.send({ email: req.userEmail });
+  try {
+    const { email, name, id, idEntry } = req.user; 
+    if (!email || !name) {
+      return res.status(400).send({ error: "Invalid token payload" });
+    }
+    res.send({ email, name, id, idEntry });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Internal server error" });
+  }
 });
