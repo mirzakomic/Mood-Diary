@@ -15,6 +15,7 @@ export default {
       colors: {
         primary: '#0d1b2a',
         secondary: '#e0e1dd',
+        tertiary: '#070F18',
         paleLilac: '#1b263b',
         darkBabyBlue: '#d67c6a',
         lightBabyBlue: '#778da9',

@@ -7,13 +7,16 @@ const router = express.Router();
 
 // Create a new diary entry
 router.post('/new', authenticateToken, async (req, res) => {
-  const { title, content, mood, userId } = req.body;
+  const { title, content, mood, userId, location, date, weather } = req.body;
   try {
     const newEntry = new DiaryEntry({
       userId,
       title,
       content,
-      mood
+      mood,
+      location,
+      date,
+      weather
     });
 
     await newEntry.save();

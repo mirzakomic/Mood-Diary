@@ -7,6 +7,13 @@ import { Modal } from 'react-responsive-modal';
 const DiaryEntries = () => {
   const [entries, setEntries] = useState([]);
   const [open, setOpen] = useState(false);
+  const weatherIcons = {
+    sunny: '☀️',
+    cloudy: '☁️',
+    rainy: '🌧️',
+    snowy: '❄️',
+    stormy: '⛈️'
+  };
 
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
@@ -38,15 +45,20 @@ const DiaryEntries = () => {
 
   return (
     <div className='font-poppinsRegular'>
-      <h1>Your Diary Entries</h1>
-    <div className='flex flex-wrap justify-center gap-6 max-w-5xl h-auto m-auto mt-4'>
+      <h1 className='mt-4 text-2xl font-poppinsBold'>Your recent entries</h1>
+    <div className='flex flex-wrap justify-center gap-10 max-w-5xl h-auto m-auto mt-4'>
       {entries.map((entry) => (
-        <div className='bg-lightBabyBlue min-w-72 rounded-2xl text-left p-2' key={entry._id}>
-          <h2 className='font-bold text-xl'>{entry.title}</h2>
-          <p>{entry.content}</p>
-          <p className='bg-darkBabyBlue text-secondary py-2'>Mood: {['😞', '😕', '😐', '😊', '😁'][entry.mood - 1]}</p>
-          <p>{new Date(entry.date).toLocaleString()}</p>
-              <Button variant="primary" size="small" shape="round" onClick={onOpenModal}>
+        <div className='bg-tertiary min-w-80 max-w-80 rounded-2xl text-left p-4 relative' key={entry._id}>
+          <h2 className='font-poppinsBold text-2xl'>{entry.title}</h2>
+          <p className='pt-2 leading-6 text-justify'>{entry.content}</p>
+          <p className='text-secondary text-4xl w-10 h-10 absolute -top-[10px] -right-[20px]'>{['😞', '😕', '😐', '😊', '😁'][entry.mood - 1]}</p>
+          <p className='text-secondary text-4xl w-20 h-20 absolute -top-[10px] -right-[60px] blur-xl'>{['😞', '😕', '😐', '😊', '😁'][entry.mood - 1]}</p>
+          <div className='flex gap-2 mt-5 mb-5'>
+          <p>{weatherIcons[entry.weather]}</p> in
+          <p>{entry.location}</p>
+          <p>{new Date(entry.date).toLocaleDateString()} {new Date(entry.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+          </div>
+              <Button variant="bg-primary" size="small" shape="round" onClick={onOpenModal}>
               🗑️
             </Button>
       <Modal open={open} onClose={onCloseModal} center>

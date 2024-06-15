@@ -9,17 +9,19 @@ export default function Dashboard() {
   const { user, isLoggedIn } = useContext(UserContext);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [mood, setMood] = useState(3);
+  const [mood, setMood] = useState('');
+  const [weather, setWeather] = useState('');
+  const [location, setLocation] = useState('');
   const navigate = useNavigate();
   const [entries, setEntries] = useState([]);
   const [fetcher, setFetcher] = useState(false);
   const userId = user.id;
   
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     fetchEntries();
-  //   }
-  // }, [isLoggedIn]);
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchEntries();
+    }
+  }, [isLoggedIn]);
 
   const fetchEntries = async () => {
     try {
@@ -35,7 +37,7 @@ export default function Dashboard() {
     e.preventDefault();
     console.log(user.id);
     try {
-      const newEntry = { title, content, mood, userId};
+      const newEntry = { title, content, mood, userId, weather, location};
       const response = await axios.post('/api/diary-entries/new', newEntry);
       console.log("New entry created:", response.data);
       console.log("new post userid:",userId);
@@ -62,7 +64,7 @@ export default function Dashboard() {
 
   return (
     <>
-    <div className="bg-darkBabyBlue rounded-2xl p-6 mt-4 shadow-lg font-poppinsRegular">
+    <div className="bg-tertiary rounded-2xl p-6 mt-4 shadow-lg font-poppinsRegular">
           <p className="text-lg font-bold">Welcome, {user.name}!</p>
           <p className="text-lg font-bold">Welcome, {user.id}!</p>
           <p className="text-left">Let's get you started. This small web-app is all about you and your journey. This personal diary is about you. Write short or lenthy posts about your day, special events and rate your mood that day with different emojis.</p>
@@ -88,20 +90,56 @@ export default function Dashboard() {
         />
 
     </div>
-    <div>
-        <select
-          value={mood}
-          onChange={(e) => setMood(Number(e.target.value))}
-          className="bg-primary p-6 rounded-2xl"
-        >
-          <option value={1}>😞</option>
-          <option value={2}>😕</option>
-          <option value={3}>😐</option>
-          <option value={4}>😊</option>
-          <option value={5}>😁</option>
-        </select>
-      {/* <input className="bg-secondary text-primary p-2 rounded-2xl" value={userId} placeholder={userId} /> */}
-    </div>
+    <div className="flex gap-10 items-center">
+    <div className="flex space-x-4 mt-2">
+              {[1, 2, 3, 4, 5].map(value => (
+                <label key={value} className="cursor-pointer">
+                  <input
+                    type="radio"
+                    value={value}
+                    checked={mood === value}
+                    onChange={() => setMood(value)}
+                    className="hidden"
+                  />
+                  <span className={`p-2 text-2xl ${mood === value ? 'bg-lightBabyBlue transition-all text-white rounded-full' : ''}`}>
+                    {['😞', '😕', '😐', '😊', '😁'][value - 1]}
+                  </span>
+                </label>
+              ))}
+            </div>
+            -
+            <div className="weather-selector flex space-x-4 mt-2">
+              {['sunny', 'cloudy', 'rainy', 'snowy', 'stormy'].map(value => (
+                <label key={value} className="cursor-pointer">
+                  <input
+                    type="radio"
+                    value={value}
+                    checked={weather === value}
+                    onChange={() => setWeather(value)}
+                    className="hidden"
+                  />
+                  <span className={`p-2 text-2xl ${weather === value ? 'bg-lightBabyBlue text-white rounded-full' : ''}`}>
+                    {value === 'sunny' && '☀️'}
+                    {value === 'cloudy' && '☁️'}
+                    {value === 'rainy' && '🌧️'}
+                    {value === 'snowy' && '❄️'}
+                    {value === 'stormy' && '🌩️'}
+                  </span>
+                </label>
+              ))}
+            </div>
+            -
+            <div>
+            <input
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              required
+              className="bg-primary p-2 rounded-lg w-full"
+              placeholder="📍 Location"
+            />
+        </div>
+            </div>
     <button className="flex gap-2 m-auto items-center bg-secondary hover:bg-darkBabyBlue text-primary py-4 px-4 mt-4 rounded-2xl font-bold capitalize" type="submit"><img className="w-8 h-8" src={SaveIcon}/>SAVE</button>
   </form>
   <DiaryEntries entries={entries} />

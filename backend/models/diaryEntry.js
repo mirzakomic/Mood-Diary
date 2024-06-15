@@ -24,6 +24,15 @@ const diaryEntrySchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  location: {
+    type: String,
+    required: true,
+  },
+  weather: {
+    type: String,
+    enum: ['sunny', 'cloudy', 'rainy', 'snowy', 'stormy'],
+    required: true
+  },
 });
 
 const DiaryEntry = mongoose.model('DiaryEntry', diaryEntrySchema);
