@@ -3,6 +3,7 @@ import { UserContext } from "../user/UserContext";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import DiaryEntries from "../components/Entries";
+import SaveIcon from "../assets/img/save_icon.svg"
 
 export default function Dashboard() {
   const { user, isLoggedIn } = useContext(UserContext);
@@ -61,42 +62,37 @@ export default function Dashboard() {
 
   return (
     <>
-    <div className="bg-darkBabyBlue rounded-2xl p-4 mt-4 shadow-lg">
+    <div className="bg-darkBabyBlue rounded-2xl p-6 mt-4 shadow-lg font-poppinsRegular">
           <p className="text-lg font-bold">Welcome, {user.name}!</p>
           <p className="text-lg font-bold">Welcome, {user.id}!</p>
           <p className="text-left">Let's get you started. This small web-app is all about you and your journey. This personal diary is about you. Write short or lenthy posts about your day, special events and rate your mood that day with different emojis.</p>
     </div>
-    <form className="p-4 bg-paleLilac rounded-2xl mt-4" onSubmit={handleSubmit}>
+    <form className="p-6 bg-paleLilac rounded-2xl mt-4 flex-nowrap text-2xl w-full" onSubmit={handleSubmit}>
     <div>
-      <label>
-        Title:
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
-          className="bg-primary p-2 rounded-lg"
+          className="bg-primary p-6 rounded-2xl font-poppinsBold w-full"
+          placeholder="Title"
         />
-      </label>
     </div>
     <div>
-      <label>
-        Content:
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
           required
-          className="bg-primary p-2 rounded-lg"
+          className="bg-primary p-6 rounded-2xl w-full"
+          placeholder="Start writing your diary entry here ..."
         />
-      </label>
+
     </div>
     <div>
-      <label>
-        Mood:
         <select
           value={mood}
           onChange={(e) => setMood(Number(e.target.value))}
-          className="bg-primary p-2 rounded-lg"
+          className="bg-primary p-6 rounded-2xl"
         >
           <option value={1}>😞</option>
           <option value={2}>😕</option>
@@ -104,10 +100,9 @@ export default function Dashboard() {
           <option value={4}>😊</option>
           <option value={5}>😁</option>
         </select>
-      </label>
-      <input className="bg-secondary text-primary p-2 rounded-lg" value={userId} placeholder={userId} />
+      {/* <input className="bg-secondary text-primary p-2 rounded-2xl" value={userId} placeholder={userId} /> */}
     </div>
-    <button className="bg-secondary text-primary p-2 rounded-lg" type="submit">Save Entry</button>
+    <button className="flex gap-2 m-auto items-center bg-secondary hover:bg-darkBabyBlue text-primary py-4 px-4 mt-4 rounded-2xl font-bold capitalize" type="submit"><img className="w-8 h-8" src={SaveIcon}/>SAVE</button>
   </form>
   <DiaryEntries entries={entries} />
   </>

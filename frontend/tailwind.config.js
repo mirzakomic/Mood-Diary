@@ -16,7 +16,7 @@ export default {
         primary: '#0d1b2a',
         secondary: '#e0e1dd',
         paleLilac: '#1b263b',
-        darkBabyBlue: '#415a77',
+        darkBabyBlue: '#d67c6a',
         lightBabyBlue: '#778da9',
 
     },

@@ -37,7 +37,7 @@ const DiaryEntries = () => {
   };
 
   return (
-    <>
+    <div className='font-poppinsRegular'>
       <h1>Your Diary Entries</h1>
     <div className='flex flex-wrap justify-center gap-6 max-w-5xl h-auto m-auto mt-4'>
       {entries.map((entry) => (
@@ -56,7 +56,7 @@ const DiaryEntries = () => {
         </div>
       ))}
     </div>
-    </>
+    </div>
   );
 };
 
