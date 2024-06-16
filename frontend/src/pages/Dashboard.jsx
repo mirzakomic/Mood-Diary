@@ -90,7 +90,7 @@ export default function Dashboard() {
         />
 
     </div>
-    <div className="flex gap-10 items-center">
+    <div className="flex gap-10 items-center justify-between flex-wrap">
     <div className="flex space-x-4 mt-2">
               {[1, 2, 3, 4, 5].map(value => (
                 <label key={value} className="cursor-pointer">

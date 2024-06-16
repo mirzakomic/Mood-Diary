@@ -6,6 +6,7 @@ import { Modal } from 'react-responsive-modal';
 
 const DiaryEntries = () => {
   const [entries, setEntries] = useState([]);
+  const slicedEntries = entries.slice(-6);
   const [open, setOpen] = useState(false);
   const weatherIcons = {
     sunny: '☀️',
@@ -43,17 +44,25 @@ const DiaryEntries = () => {
     }
   };
 
+const truncateText = (text, maxLength) => {
+  if (text.length > maxLength) {
+    return text.substring(0, maxLength) + '...';
+  }
+  return text;
+};
+
   return (
     <div className='font-poppinsRegular'>
-      <h1 className='mt-4 text-2xl font-poppinsBold'>Your recent entries</h1>
-    <div className='flex flex-wrap justify-center gap-10 max-w-5xl h-auto m-auto mt-4'>
-      {entries.map((entry) => (
-        <div className='bg-tertiary min-w-80 max-w-80 rounded-2xl text-left p-4 relative' key={entry._id}>
-          <h2 className='font-poppinsBold text-2xl'>{entry.title}</h2>
-          <p className='pt-2 leading-6 text-justify'>{entry.content}</p>
+      <h1 className='mt-8 text-3xl font-poppinsBold uppercase'>Your recent entries</h1>
+    <div className='flex flex-wrap justify-center gap-10 max-w-6xl h-auto m-auto mt-8'>
+      {slicedEntries.map((entry) => (
+        <div className='bg-tertiary min-w-80 max-w-80 rounded-2xl text-left p-4 relative hover:scale-105 hover:transition-all transition-all' key={entry._id}>
+          <h2 className='font-poppinsBold text-2xl'> {truncateText(entry.title, 45)}</h2>
+          <div className='border-b-2 border-dashed pt-2 border-paleLilac'/>
+          <p className='pt-4 leading-6 text-justify'> {truncateText(entry.content, 200)}</p>
           <p className='text-secondary text-4xl w-10 h-10 absolute -top-[10px] -right-[20px]'>{['😞', '😕', '😐', '😊', '😁'][entry.mood - 1]}</p>
           <p className='text-secondary text-4xl w-20 h-20 absolute -top-[10px] -right-[60px] blur-xl'>{['😞', '😕', '😐', '😊', '😁'][entry.mood - 1]}</p>
-          <div className='flex gap-2 mt-5 mb-5'>
+          <div className='flex gap-2 mt-5 mb-5 p-2 rounded-2xl border-dashed border-paleLilac border-2'>
           <p>{weatherIcons[entry.weather]}</p> in
           <p>{entry.location}</p>
           <p>{new Date(entry.date).toLocaleDateString()} {new Date(entry.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
