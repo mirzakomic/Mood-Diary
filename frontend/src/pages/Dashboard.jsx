@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import DiaryEntries from "../components/Entries";
 import SaveIcon from "../assets/img/save_icon.svg"
+import MoodBoard from "../components/MoodBoard";
 
 export default function Dashboard() {
   const { user, isLoggedIn } = useContext(UserContext);
@@ -67,7 +68,7 @@ export default function Dashboard() {
     <div className="bg-tertiary rounded-2xl p-6 mt-4 shadow-lg font-poppinsRegular">
           <p className="text-lg font-bold">Welcome, {user.name}!</p>
           <p className="text-lg font-bold">Welcome, {user.id}!</p>
-          <p className="text-left">Let's get you started. This small web-app is all about you and your journey. This personal diary is about you. Write short or lenthy posts about your day, special events and rate your mood that day with different emojis.</p>
+<MoodBoard/>
     </div>
     <form className="p-6 bg-paleLilac rounded-2xl mt-4 flex-nowrap text-2xl w-full" onSubmit={handleSubmit}>
     <div>

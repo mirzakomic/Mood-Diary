@@ -12,7 +12,7 @@ const Navigation = () => {
       <div className="flex items-center gap-5 mr-5">
       {!isLoggedIn && (
         <>
-          <Link to="/" cclassName="hover:bg-primary p-3 rounded-2xl transition-all">Home</Link>
+          <Link to="/" className="hover:bg-primary p-3 rounded-2xl transition-all">Home</Link>
           <Link to="/signup" className="hover:bg-primary p-3 rounded-2xl transition-all">Signup</Link>
           <Link to="/login" className="hover:bg-primary p-3 rounded-2xl transition-all">Login</Link>
         </>

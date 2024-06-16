@@ -68,4 +68,42 @@ router.delete('/:id', authenticateToken, async (req, res) => {
   }
 });
 
+// Get average mood for entries from the past 30 days for the logged-in user
+router.get('/average-mood', authenticateToken, async (req, res) => {
+  try {
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    const entries = await DiaryEntry.find({
+      userId: req.user.id,
+      date: { $gte: thirtyDaysAgo }
+    });
+
+    if (entries.length === 0) {
+      console.log('No entries found in the past 30 days'); // Check if this log appears
+      return res.status(404).send({ error: 'No entries found in the past 30 days' });
+    }
+
+    let totalMoodValue = 0;
+    entries.forEach(entry => {
+      switch (entry.mood) {
+        case 1: totalMoodValue += -2; break; // 😞
+        case 2: totalMoodValue += -1; break; // 😕
+        case 3: totalMoodValue += 0; break;  // 😐
+        case 4: totalMoodValue += 1; break;  // 😊
+        case 5: totalMoodValue += 2; break;  // 😁
+        default: break;
+      }
+    });
+
+    const averageMood = totalMoodValue / entries.length;
+    console.log(averageMood);
+
+    console.log('Average mood:', averageMood); // Check if this log appears
+    res.status(200).send({ averageMood });
+  } catch (error) {
+    console.error('Error fetching average mood:', error); // Ensure this error log appears
+    res.status(500).send({ error: error.message });
+  }
+});
+
 export default router;
