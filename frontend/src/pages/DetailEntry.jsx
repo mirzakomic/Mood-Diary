@@ -39,13 +39,15 @@ const DetailEntry = ({entries}) => {
   
 
   return (
-    <div>
+    <div className='bg-tertiary p-8 mt-10 rounded-3xl'>
       <h2 className='font-poppinsBold text-2xl'>{entry.title}</h2>
-      <p>{entry.content}</p>
-      <p>Mood: {['😞', '😕', '😐', '😊', '😁'][entry.mood - 1]}</p>
-      <p>Weather: {weatherIcons[entry.weather]}</p>
-      <p>Location: {entry.location}</p>
-      <p>Date: {new Date(entry.date).toLocaleDateString()} {new Date(entry.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+      <p className='leading-6 text-justify mt-4'>{entry.content}</p>
+      <div className='flex gap-2 mt-5 mb-5 p-2 rounded-2xl border-dashed border-paleLilac border-2'>
+      <p>Feeling {['😞', '😕', '😐', '😊', '😁'][entry.mood - 1]}</p> -
+      <p>{weatherIcons[entry.weather]}</p>
+      <p>in {entry.location}</p>
+      <p>on {new Date(entry.date).toLocaleDateString()} {new Date(entry.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+      </div>
     </div>
   );
 };
