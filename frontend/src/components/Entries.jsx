@@ -64,7 +64,7 @@ const truncateText = (text, maxLength) => {
           <p className='text-secondary text-4xl w-20 h-20 absolute -top-[10px] -right-[60px] blur-xl'>{['😞', '😕', '😐', '😊', '😁'][entry.mood - 1]}</p>
           <div className='flex gap-2 mt-5 mb-5 p-2 rounded-2xl border-dashed border-paleLilac border-2'>
           <p>{weatherIcons[entry.weather]}</p> in
-          <p>{entry.location}</p>
+          <p className='capitalize'>{entry.location}</p>
           <p>{new Date(entry.date).toLocaleDateString()} {new Date(entry.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
           </div>
               <Button variant="bg-primary" size="small" shape="round" onClick={onOpenModal}>
