@@ -37,6 +37,19 @@ router.get('/all', authenticateToken, async (req, res) => {
   }
 });
 
+// Get a single diary entry by ID for the logged-in user
+router.get('/:id', authenticateToken, async (req, res) => {
+  try {
+    const entry = await DiaryEntry.findOne({ _id: req.params.id, userId: req.user.id });
+    if (!entry) {
+      return res.status(404).send({ error: 'Entry not found' });
+    }
+    res.status(200).send(entry);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
 // Delete a diary entry by ID
 router.delete('/:id', authenticateToken, async (req, res) => {
   const { id } = req.params;
