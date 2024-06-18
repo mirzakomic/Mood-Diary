@@ -72,34 +72,6 @@ router.get('/average-mood', authenticateToken, async (req, res) => {
   }
 });
 
-//     console.log('Entries fetched:', entries.length);
-
-//     if (entries.length === 0) {
-//       console.log('No entries found in the past 30 days');
-//       return res.status(404).send({ error: 'No entries found in the past 30 days' });
-//     }
-
-//     let totalMoodValue = 0;
-//     entries.forEach(entry => {
-//       switch (entry.mood) {
-//         case 1: totalMoodValue += -2; break; 
-//         case 2: totalMoodValue += -1; break;
-//         case 3: totalMoodValue += 0; break; 
-//         case 4: totalMoodValue += 1; break; 
-//         case 5: totalMoodValue += 2; break; 
-//         default: break;
-//       }
-//     });
-
-//     const averageMood = totalMoodValue / entries.length;
-//     console.log('Average mood calculated:', averageMood);
-
-//     res.status(200).send({ averageMood });
-//   } catch (error) {
-//     console.error('Error fetching average mood:', error);
-//     res.status(500).send({ error: error.message });
-//   }
-// });
 
 // Get a single diary entry by ID for the logged-in user
 router.get('/:id', authenticateToken, async (req, res) => {

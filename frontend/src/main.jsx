@@ -7,12 +7,15 @@ import "../src/style/font.css"
 import { BrowserRouter } from "react-router-dom";
 
 import { UserProvider } from "./user/UserContext.jsx";
+import { DiaryProvider } from "./providers/DiaryProvider.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
+        <DiaryProvider>
         <App />
+        </DiaryProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
