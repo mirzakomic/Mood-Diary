@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Loader from './Loader';
 
 const MoodBoard = () => {
   const [medianMood, setmedianMood] = useState(null);
@@ -22,11 +23,11 @@ const MoodBoard = () => {
     fetchmedianMood();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader/>;
   if (error) return <div>Error: {error.error}</div>;
 
   let moodEmoji;
-  console.log(moodEmoji, medianMood);
+  // console.log(moodEmoji, medianMood);
   if (medianMood === 1) {
     moodEmoji = '😞'; // Very negative
   } else if (medianMood === 2) {
@@ -41,10 +42,10 @@ const MoodBoard = () => {
   }
 
   return (
-    <div>
-      <h1>Mood Board</h1>
-      <p>Average Mood: {moodEmoji}</p>
-      <p>Average Mood Value: {medianMood}</p>
+    <div className='p-10 flex rounded-3xl w-1/2 justify-center'>
+        <p className='text-8xl relative'>{moodEmoji}</p>
+        <p className='text-8xl blur-2xl absolute'>{moodEmoji}</p>
+      {/* <p>Average Mood Value: {medianMood}</p> */}
     </div>
   );
 };

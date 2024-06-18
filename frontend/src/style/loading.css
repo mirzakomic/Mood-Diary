@@ -1,0 +1,25 @@
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  .loading-spinner {
+    width: inherit;
+    height: inherit;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    animation: pulse 2s cubic-bezier(0.075, 0.82, 0.165, 1) infinite;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+
+    75% {
+      transform: scale(0.7);
+    }
+  }
