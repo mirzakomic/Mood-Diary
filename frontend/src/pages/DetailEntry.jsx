@@ -1,13 +1,15 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import Button from '../components/Button';
 
 const DetailEntry = ({entries}) => {
     const { id } = useParams();
     const [entry, setEntry] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const weatherIcons = {
         sunny: '☀️',
@@ -32,6 +34,11 @@ const DetailEntry = ({entries}) => {
   
       fetchEntry();
     }, [id]);
+
+    const goBack = () => {
+        navigate(-1);
+      };
+
   
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error.error}</div>;
@@ -39,6 +46,10 @@ const DetailEntry = ({entries}) => {
   
 
   return (
+    <>
+    <div className='mt-4 flex'> 
+    <Button variant="primary" size="big" shape="round" onClick={goBack}>Go back</Button>
+    </div>
     <div className='bg-tertiary p-8 mt-10 rounded-3xl'>
       <h2 className='font-poppinsBold text-2xl'>{entry.title}</h2>
       <p className='leading-6 text-justify mt-4'>{entry.content}</p>
@@ -49,6 +60,7 @@ const DetailEntry = ({entries}) => {
       <p>on {new Date(entry.date).toLocaleDateString()} {new Date(entry.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
       </div>
     </div>
+    </>
   );
 };
 

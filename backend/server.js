@@ -5,7 +5,7 @@ import path from "path";
 import cookieParser from "cookie-parser";
 
 import { userRouter } from "./user/routes.js";
-import diaryEntriesRouter from './user/diaryRoutes.js';
+import  diaryEntriesRouter from './user/diaryRoutes.js';
 
 dotenv.config({
   path: path.join(path.resolve(), "..", ".env"),

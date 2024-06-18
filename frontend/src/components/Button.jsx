@@ -15,7 +15,7 @@ const Button = ({
   const baseClass = 'inline-flex items-center justify-center font-medium transition duration-300';
   const variantMap = {
       secondary: 'bg-secondary text-white hover:bg-gray-600',
-      tertiary: 'bg-tertiary-500 text-white hover:bg-blue-700',
+      tertiary: 'bg-tertiary text-white hover:bg-blue-700',
   };
   const variantClass = variantMap[variant] || 'bg-primary text-lightBabyBlue  hover:bg-secondary hover:text-primary';
   const sizeClass = size === 'big' 

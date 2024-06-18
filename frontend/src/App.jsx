@@ -14,6 +14,7 @@ import DetailEntry from "./pages/DetailEntry";
 import Navigation from "./components/Navigation";
 
 import "./App.css";
+import MoodBoard from "./components/MoodBoard";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/average-mood" element={<MoodBoard />} />
           <Route path="/diary" element={<Diary />} />
           <Route path="/entry/:id" element={<DetailEntry />} />
           <Route path="/signup" element={<Signup />} />

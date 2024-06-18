@@ -22,7 +22,7 @@ export default function Dashboard() {
     if (isLoggedIn) {
       fetchEntries();
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, fetcher ]);
 
   const fetchEntries = async () => {
     try {
@@ -42,7 +42,7 @@ export default function Dashboard() {
       const response = await axios.post('/api/diary-entries/new', newEntry);
       console.log("New entry created:", response.data);
       console.log("new post userid:",userId);
-      // fetchEntries(); // Refresh entries
+      fetchEntries(); // Refresh entries
       setFetcher(prevFetcher => !prevFetcher);
     } catch (error) {
       console.error(error);
