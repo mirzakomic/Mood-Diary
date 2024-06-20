@@ -31,7 +31,7 @@ export default function Dashboard() {
   return (
     <>
       <div className="bg-tertiary rounded-2xl p-6 mt-4 shadow-lg font-poppinsRegular">
-        <p className="text-lg font-bold">Welcome, {user.name}!</p>
+        {/* <p className="text-lg font-bold">Welcome, {user.name}!</p> */}
         <MoodBoard />
       </div>
       <form className="p-6 bg-paleLilac rounded-2xl mt-4 flex-nowrap text-2xl w-full" onSubmit={handleSubmit}>
@@ -50,7 +50,7 @@ export default function Dashboard() {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
-            className="bg-primary p-6 rounded-2xl w-full"
+            className="bg-primary p-6 rounded-2xl w-full min-h-64"
             placeholder="Start writing your diary entry here ..."
           />
         </div>
