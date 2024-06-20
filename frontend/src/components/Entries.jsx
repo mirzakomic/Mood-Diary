@@ -6,10 +6,10 @@ import { Modal } from 'react-responsive-modal';
 import { Link } from 'react-router-dom';
 import { DiaryContext } from '../providers/DiaryProvider.jsx';
 
-const DiaryEntries = () => {
+const DiaryEntries = ({maxEntriesShown, selectedMood}) => {
   const { entries, fetchEntries } = useContext(DiaryContext);
-  const slicedEntries = entries.slice(-6);
   const [open, setOpen] = useState(false);
+  const [deleteEntryId, setDeleteEntryId] = useState(null); // Track which entry to delete
   const [toggledEntryId, setToggledEntryId] = useState(null);
   const weatherIcons = {
     sunny: '☀️',
@@ -19,22 +19,36 @@ const DiaryEntries = () => {
     stormy: '⛈️'
   };
 
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
+  const onOpenModal = (id) => {
+    setDeleteEntryId(id); // Set the entry id to delete
+    setOpen(true); // Open the modal
+  };
+
+  const onCloseModal = () => {
+    setDeleteEntryId(null); // Reset delete entry id
+    setOpen(false); // Close the modal
+  };
 
   const toggleDisplayMore = (id) => {
     setToggledEntryId((prevId) => (prevId === id ? null : id));
   };
 
-  const deleteEntry = async (id) => {
+  const deleteEntry = async () => {
     try {
-      await axios.delete(`/api/diary-entries/${id}`);
+      await axios.delete(`/api/diary-entries/${deleteEntryId}`);
       await fetchEntries(); // Re-fetch entries after deletion
       onCloseModal(); // Close modal after deletion
     } catch (error) {
       console.error('Failed to delete diary entry', error);
     }
   };
+
+  const filterEntriesByMood = (entry) => {
+    if (!selectedMood) {
+        return true; // Show all entries if no mood filter selected
+    }
+    return entry.mood === selectedMood;
+};
 
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
@@ -43,12 +57,16 @@ const DiaryEntries = () => {
     return text;
   };
 
+  const entriesToShow = maxEntriesShown ? entries.slice(-maxEntriesShown) : entries;
 
   return (
     <div className='font-poppinsRegular'>
       <h1 className='mt-8 text-3xl font-poppinsBold uppercase'>Your recent entries</h1>
       <div className='flex flex-wrap justify-center gap-10 max-w-6xl h-auto m-auto mt-8'>
-        {slicedEntries.map((entry) => (
+        {entries
+                    .filter(filterEntriesByMood)
+                    .slice(0, maxEntriesShown)
+                    .map((entry) => (
           <div key={entry._id} className='bg-tertiary min-w-80 max-w-80 rounded-2xl text-left p-4 relative hover:scale-105 hover:transition-all transition-all entry'>
             <Link to={`/entry/${entry._id}`}>
               <h2 className='font-poppinsBold text-2xl'> {truncateText(entry.title, 45)}</h2>
@@ -64,17 +82,19 @@ const DiaryEntries = () => {
             </div>
             <div className='flex gap-2'>
               <Button onClick={() => toggleDisplayMore(entry._id)} variant="primary" size="small" shape="round">•••</Button>
-              {toggledEntryId === entry._id && <Button variant="primary" size="small" shape="round" onClick={onOpenModal}>
-                🗑️
-              </Button>}
+              {toggledEntryId === entry._id && (
+                <Button variant="primary" size="small" shape="round" onClick={() => onOpenModal(entry._id)}>
+                  🗑️
+                </Button>
+              )}
             </div>
-            <Modal open={open} onClose={onCloseModal} center>
-              <h2 className='text-primary mt-10 mb-5'>Are you sure that you want to delete this entry?</h2>
-              <Button variant="primary" size="big" shape="round" onClick={() => deleteEntry(entry._id)}>Yes</Button>
-            </Modal>
           </div>
         ))}
       </div>
+      <Modal open={open} onClose={onCloseModal} center>
+        <h2 className='text-primary mt-10 mb-5'>Are you sure that you want to delete this entry?</h2>
+        <Button variant="primary" size="big" shape="round" onClick={deleteEntry}>Yes</Button>
+      </Modal>
     </div>
   );
 };

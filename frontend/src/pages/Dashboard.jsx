@@ -109,7 +109,7 @@ export default function Dashboard() {
           SAVE
         </button>
       </form>
-      <DiaryEntries entries={entries} />
+      <DiaryEntries entries={entries} maxEntriesShown={6} />
     </>
   );
 }
