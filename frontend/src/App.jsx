@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import ResetPassword from "./user/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import DetailEntry from "./pages/DetailEntry";
+import Background from "./components/Background"
 
 // Components
 import Navigation from "./components/Navigation";
@@ -19,6 +20,7 @@ import MoodBoard from "./components/MoodBoard";
 function App() {
   return (
     <div className="p-5">
+      <Background/>
     <Navigation />
       <main>
         <Routes>

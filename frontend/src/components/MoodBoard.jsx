@@ -46,9 +46,9 @@ useEffect(() => {
 
 
   return (
-<div className='py-10 pl-10 flex rounded-3xl justify-center relative overflow-hidden'>
+<div className='py-10 pl-10 flex rounded-3xl justify-center relative overflow-visible'>
   <div className='flex-1 flex justify-center items-center flex-col'>
-    <div className='relative w-24 h-24 flex'>
+    <div className='relative w-24 h-24 flex overflow-visible'>
     <p className='text-8xl relative z-10'>{moodEmoji}</p>
     <p className='text-8xl absolute top-0 left-0 blur-2xl z-0'>{moodEmoji}</p>
     </div>

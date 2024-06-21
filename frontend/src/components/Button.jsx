@@ -6,8 +6,9 @@ const Button = ({
   children, 
   onClick, 
   disabled, 
-  variant, 
-  size, 
+  variant,
+  size,
+  fontSize, 
   shape, 
   href, 
   type 
@@ -21,6 +22,7 @@ const Button = ({
   const sizeClass = size === 'big' 
     ? 'py-3 px-6 text-lg' 
     : 'py-2 px-4 text-sm';
+  const fontSizeClass = fontSize || '';
   const shapeClass = shape === 'round' 
     ? 'rounded-full' 
     : 'rounded-md';
@@ -28,7 +30,7 @@ const Button = ({
     ? 'opacity-50 cursor-not-allowed' 
     : '';
 
-  const classNames = `${baseClass} ${variantClass} ${sizeClass} ${shapeClass} ${disabledClass}`.trim();
+  const classNames = `${baseClass} ${variantClass} ${sizeClass} ${shapeClass} ${disabledClass} ${fontSizeClass}`.trim();
 
   if (href) {
     return (
@@ -56,6 +58,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
   size: PropTypes.oneOf(['small', 'big']),
+  fontSize: PropTypes.string,
   shape: PropTypes.oneOf(['round', 'square']),
   href: PropTypes.string,
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
@@ -66,6 +69,7 @@ Button.defaultProps = {
   disabled: false,
   variant: 'primary',
   size: 'small',
+  fontSize: '',
   shape: 'square',
   href: null,
   type: 'button',

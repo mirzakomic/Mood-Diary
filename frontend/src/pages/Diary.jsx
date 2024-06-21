@@ -47,11 +47,11 @@ const Diary = () => {
     return (
         <div className="space-y-6">
         <div className="flex justify-center mt-4 gap-1">
-                <Button onClick={() =>handleMoodFilter(1)} size='big' shape='round' variant={selectedMood === 1 ? "secondary" : "primary"}>😞</Button>
-                <Button onClick={() =>handleMoodFilter(2)} size='big' shape='round' variant={selectedMood === 2 ? "secondary" : "primary"}>😕</Button>
-                <Button onClick={() =>handleMoodFilter(3)} size='big' shape='round' variant={selectedMood === 3 ? "secondary" : "primary"}>😐</Button>
-                <Button onClick={() =>handleMoodFilter(4)} size='big' shape='round' variant={selectedMood === 4 ? "secondary" : "primary"}>😊</Button>
-                <Button onClick={() =>handleMoodFilter(5)} size='big' shape='round' variant={selectedMood === 5 ? "secondary" : "primary"}>😁</Button>
+                <Button onClick={() =>handleMoodFilter(1)} fontSize='text-6xl' size='big' shape='round' variant={selectedMood === 1 ? "secondary" : "primary"}>😞</Button>
+                <Button onClick={() =>handleMoodFilter(2)} fontSize='text-6xl' size='big' shape='round' variant={selectedMood === 2 ? "secondary" : "primary"}>😕</Button>
+                <Button onClick={() =>handleMoodFilter(3)} fontSize='text-6xl' size='big' shape='round' variant={selectedMood === 3 ? "secondary" : "primary"}>😐</Button>
+                <Button onClick={() =>handleMoodFilter(4)} fontSize='text-6xl' size='big' shape='round' variant={selectedMood === 4 ? "secondary" : "primary"}>😊</Button>
+                <Button onClick={() =>handleMoodFilter(5)} fontSize='text-6xl' size='big' shape='round' variant={selectedMood === 5 ? "secondary" : "primary"}>😁</Button>
             </div>
         <DiaryEntries entries={entries} maxEntriesShown={maxEntriesToShow} selectedMood={selectedMood}/>
         <Button size={'big'} onClick={loadMoreEntries}>Load more</Button>
