@@ -19,7 +19,7 @@ import MoodBoard from "./components/MoodBoard";
 function App() {
   return (
     <div className="p-5">
-      <Navigation />
+    <Navigation />
       <main>
         <Routes>
           <Route path="/" element={<Home />} />

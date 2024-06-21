@@ -1,6 +1,6 @@
 // src/pages/Dashboard.js
 import React, { useContext, useState } from "react";
-import { UserContext } from "../user/UserContext";
+import { UserContext } from "../providers/UserContext";
 import { DiaryContext } from "../providers/DiaryProvider";
 import axios from 'axios';
 import DiaryEntries from "../components/Entries";

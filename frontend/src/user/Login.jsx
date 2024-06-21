@@ -2,7 +2,8 @@ import axios from "axios";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { UserContext } from "./UserContext";
+import { UserContext } from "../providers/UserContext";
+import Button from "../components/Button";
 
 export default function Login() {
   const { refetch } = useContext(UserContext);
@@ -27,11 +28,12 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={submit} className="bg-paleLilac p-2 rounded-lg mt-4">
-      <input name="email" type="email" placeholder="your email" className="bg-primary p-2 rounded-lg" />
-      <input name="password" type="password" placeholder="***********" className="bg-primary p-2 rounded-lg"/>
+    <form onSubmit={submit} className="bg-paleLilac p-6 rounded-lg mt-4 flex flex-col gap-3 w-2/3 max-w-md">
+      <input name="email" type="email" placeholder="Your email" className="bg-primary p-4 rounded-lg" />
+      <input name="password" type="password" placeholder="Your password" className="bg-primary p-4 rounded-lg"/>
       {error && <small style={{ color: "red" }}>{error}</small>}
-      <button disabled={loading}>{loading ? "Loading..." : "Login"}</button>
+      {/* <button disabled={loading}>{loading ? "Loading..." : "Login"}</button> */}
+      <Button size="big" variant="tertiary" type="submit">Login</Button>
     </form>
   );
 }

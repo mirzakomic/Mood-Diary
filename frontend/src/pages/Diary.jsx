@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { UserContext } from "../user/UserContext";
+import { UserContext } from "../providers/UserContext";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import DiaryEntries from "../components/Entries";
