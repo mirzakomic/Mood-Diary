@@ -15,13 +15,17 @@ const Button = ({
 }) => {
   const baseClass = 'inline-flex items-center justify-center font-medium transition duration-300';
   const variantMap = {
-      secondary: 'bg-secondary text-white hover:bg-gray-600',
+      primary: 'bg-primary text-lightBabyBlue  hover:bg-secondary hover:text-primary',
+      secondary: 'bg-secondary text-primary hover:bg-gray-600',
       tertiary: 'bg-tertiary text-white hover:bg-black',
   };
-  const variantClass = variantMap[variant] || 'bg-primary text-lightBabyBlue  hover:bg-secondary hover:text-primary';
-  const sizeClass = size === 'big' 
-    ? 'py-3 px-6 text-lg' 
-    : 'py-2 px-4 text-sm';
+  const sizeMap = {
+    big: 'py-3 px-6 text-lg',
+    small: 'py-2 px-4 text-sm',
+    bigBall: 'p-3'
+  }
+  const variantClass = variantMap[variant] || primary;
+  const sizeClass = sizeMap[size] || big;
   const fontSizeClass = fontSize || '';
   const shapeClass = shape === 'round' 
     ? 'rounded-full' 
@@ -57,7 +61,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
-  size: PropTypes.oneOf(['small', 'big']),
+  size: PropTypes.oneOf(['small', 'big', 'bigBall']),
   fontSize: PropTypes.string,
   shape: PropTypes.oneOf(['round', 'square']),
   href: PropTypes.string,
