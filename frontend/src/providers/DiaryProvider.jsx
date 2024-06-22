@@ -1,9 +1,11 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import { UserContext } from './UserContext';
 import axios from 'axios';
 
 export const DiaryContext = createContext();
 
 export const DiaryProvider = ({ children }) => {
+  const { isLoggedIn } = useContext(UserContext);
   const [entries, setEntries] = useState([]);
   const [medianMood, setMedianMood] = useState(null);
 
@@ -37,9 +39,14 @@ export const DiaryProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchEntries();
-    fetchMedianMood();
-  }, []);
+    if (isLoggedIn) {
+      fetchEntries();
+      fetchMedianMood();
+    }
+    else {
+      return;
+    }
+  }, [isLoggedIn]);
 
   return (
     <DiaryContext.Provider value={{ entries, setEntries, fetchEntries, deleteEntry, medianMood, fetchMedianMood }}>

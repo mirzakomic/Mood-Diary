@@ -5,29 +5,39 @@ import axios from "axios";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const nav = useNavigate();
+  const navigate = useNavigate();
   const [shouldRefetch, _refetch] = useState(true);
   const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add isLoggedIn state
 
   const refetch = () => _refetch((prev) => !prev);
 
   const logout = async () => {
-    await axios.get("/api/user/logout");
-    setUser(null);
-    nav("/");
+    try {
+      await axios.get("/api/user/logout");
+      setUser(null);
+      setIsLoggedIn(false);
+      navigate("/");
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
 
   useEffect(() => {
     axios
       .get("/api/user/secure")
-      .then(({ data }) => setUser(data))
+      .then(({ data }) => {
+        setUser(data);
+        setIsLoggedIn(true); // Update isLoggedIn state
+      })
       .catch((e) => {
         setUser(null);
+        setIsLoggedIn(false); // Update isLoggedIn state
       });
   }, [shouldRefetch]);
 
   return (
-    <UserContext.Provider value={{ user, isLoggedIn: !!user, refetch, logout }}>
+    <UserContext.Provider value={{ user, isLoggedIn, refetch, logout }}>
       {children}
     </UserContext.Provider>
   );

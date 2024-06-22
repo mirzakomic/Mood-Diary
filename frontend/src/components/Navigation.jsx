@@ -14,6 +14,9 @@ const Navigation = () => {
     setShowForm(prev => !prev);
   };
 
+  const handleSignupSuccess = () => {
+    setShowForm(true);
+  };
 
   return (
          <>
@@ -34,7 +37,7 @@ const Navigation = () => {
   <>
   <div className="flex flex-col justify-center items-center gap-4 h-screen">
   <img src={Logo} className="w-40 h-40" />
-        {showForm ? <Login/> : <Signup/>}
+        {showForm ? <Login/> : <Signup onSignupSuccess={handleSignupSuccess}/>}
       <Button onClick={toggleForm} variant="tertiary">
         {showForm ? "You want to sign up rather?" : "Login?"}
       </Button>
