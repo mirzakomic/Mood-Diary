@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import { Schema, model } from "mongoose";
-import User from "../models/userModel.js";
+import User from "../models/UserModel.js";
 import { passwordResetMailTemplate } from "../lib/mailTemplates.js";
 import { sendMail } from "../lib/sendMail.js";
 
