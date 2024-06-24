@@ -8,6 +8,8 @@ const MoodBoard = () => {
   const { medianMood } = useContext(DiaryContext);
   const [randomEmojis, setRandomEmojis] = useState([]);
 
+
+//? todo: UPDATE MOODS AFTER DELETING AN ENTRY
 // Function to generate random properties for emojis
 useEffect(() => {
   const generateRandomEmojis = (count) => {
@@ -28,19 +30,19 @@ useEffect(() => {
   let moodEmoji;
   let moodText;
   if (medianMood === 1) {
-    moodEmoji = '😞'; // Very negative
+    moodEmoji = '😞';
     moodText = 'Feeling really down'
   } else if (medianMood === 2) {
-    moodEmoji = '😕'; // Negative
+    moodEmoji = '😕';
         moodText = 'Feeling down'
   } else if (medianMood === 3) {
-    moodEmoji = '😐'; // Neutral
+    moodEmoji = '😐';
         moodText = 'Mixed feelings'
   } else if (medianMood === 4) {
-    moodEmoji = '😊'; // Positive
+    moodEmoji = '😊';
         moodText = 'Feeling good'
   } else if (medianMood === 5) {
-    moodEmoji = '😁'; // Very positive
+    moodEmoji = '😁';
         moodText = 'Feeling awesome!'
   }
 
@@ -55,7 +57,6 @@ useEffect(() => {
     <p className='mt-2 font-poppinsBold text-2xl'>{moodText}</p>
   </div>
   <div className='border-l-2 border-primary flex-1'>
-    {/* <p>{medianMood}</p> */}
     <h2 className='font-poppinsBold text-xl'>Your moodboard</h2>
     <p className='p-5 text-justify'>This moodboard displays your median mood over the past 30 days. Each time you post a new entry in your diary, the moodboard updates dynamically. The more you track your mood and general well-being, the more accurate your moodboard will be.</p>
   </div>

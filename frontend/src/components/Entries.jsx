@@ -9,7 +9,7 @@ import { DiaryContext } from '../providers/DiaryProvider.jsx';
 const DiaryEntries = ({maxEntriesShown, selectedMood}) => {
   const { entries, fetchEntries } = useContext(DiaryContext);
   const [open, setOpen] = useState(false);
-  const [deleteEntryId, setDeleteEntryId] = useState(null); // Track which entry to delete
+  const [deleteEntryId, setDeleteEntryId] = useState(null);
   const [toggledEntryId, setToggledEntryId] = useState(null);
   const weatherIcons = {
     sunny: '☀️',

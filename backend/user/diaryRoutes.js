@@ -39,15 +39,9 @@ router.get('/all', authenticateToken, async (req, res) => {
 
 // Get average mood for entries from the past 30 days for the logged-in user
 router.get('/average-mood', authenticateToken, async (req, res) => {
-  console.log('Request received to /average-mood');
   try {
-    console.log('Request received to /average-mood');
-
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-    console.log('Fetching entries since:', thirtyDaysAgo);
-
     const entries = await DiaryEntry.find({
       userId: req.user.id,
       date: { $gte: thirtyDaysAgo }
@@ -65,7 +59,6 @@ router.get('/average-mood', authenticateToken, async (req, res) => {
     } else {
       medianMood = (moodValues[n / 2 - 1] + moodValues[n / 2]) / 2; // Median for even number of entries
     }
-
     res.status(200).send({ medianMood });
   } catch (error) {
     res.status(500).send({ error: error.message });

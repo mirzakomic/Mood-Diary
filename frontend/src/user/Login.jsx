@@ -20,7 +20,7 @@ export default function Login() {
     try {
       await axios.post("/api/user/login", data);
       refetch();
-      nav("/profile");
+      nav("/dashboard");
     } catch (e) {
       console.log(e);
       setError("An Error occured, try again later");
@@ -32,7 +32,6 @@ export default function Login() {
       <input name="email" type="email" placeholder="Your email" className="bg-primary p-4 rounded-lg" />
       <input name="password" type="password" placeholder="Your password" className="bg-primary p-4 rounded-lg"/>
       {error && <small style={{ color: "red" }}>{error}</small>}
-      {/* <button disabled={loading}>{loading ? "Loading..." : "Login"}</button> */}
       <Button size="big" variant="tertiary" type="submit">Login</Button>
     </form>
   );

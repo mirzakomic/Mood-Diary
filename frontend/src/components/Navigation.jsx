@@ -26,7 +26,7 @@ const Navigation = () => {
           <div className="flex items-center gap-5 mr-5">
           <Link to="/dashboard" className="hover:bg-primary p-3 rounded-2xl transition-all">Dashboard</Link>
           <Link to="/diary" className="hover:bg-primary p-3 rounded-2xl transition-all">Diary</Link>
-          <Link to="/profile" className="hover:bg-primary p-3 rounded-2xl transition-all">Profile</Link>
+          {/* <Link to="/profile" className="hover:bg-primary p-3 rounded-2xl transition-all">Profile</Link> */}
           <button type="button" className="hover:bg-primary p-3 rounded-2xl transition-all" onClick={logout}>
             Logout
           </button>

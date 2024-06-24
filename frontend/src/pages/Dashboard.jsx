@@ -1,4 +1,3 @@
-// src/pages/Dashboard.js
 import React, { useContext, useState } from "react";
 import { UserContext } from "../providers/UserContext";
 import { DiaryContext } from "../providers/DiaryProvider";
