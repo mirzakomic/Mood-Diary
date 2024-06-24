@@ -1,6 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
-import User from "./UserModel.js";
+import User from "../models/UserModel.js";
 import { authenticateToken, generateAccessToken } from "./authToken.js";
 import { createResetToken, validateResetToken } from "./ResetTokenModel.js";
 
