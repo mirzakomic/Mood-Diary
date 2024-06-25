@@ -5,6 +5,7 @@ import axios from "axios";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
   const [shouldRefetch, _refetch] = useState(true);
   const [user, setUser] = useState(null);
@@ -14,7 +15,7 @@ export const UserProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.get("/api/user/logout");
+      await axios.get(`${apiUrl}/api/user/logout`);
       setUser(null);
       setIsLoggedIn(false);
       navigate("/");
@@ -25,7 +26,7 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     axios
-      .get("/api/user/secure")
+      .get(`${apiUrl}/api/user/secure`)
       .then(({ data }) => {
         setUser(data);
         setIsLoggedIn(true); // Update isLoggedIn state

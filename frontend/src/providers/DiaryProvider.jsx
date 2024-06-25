@@ -5,13 +5,14 @@ import axios from 'axios';
 export const DiaryContext = createContext();
 
 export const DiaryProvider = ({ children }) => {
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const { isLoggedIn } = useContext(UserContext);
   const [entries, setEntries] = useState([]);
   const [medianMood, setMedianMood] = useState(null);
 
   const fetchEntries = async () => {
     try {
-      const response = await axios.get('/api/diary-entries/all');
+      const response = await axios.get(`${apiUrl}/api/diary-entries/all`);
       setEntries(response.data);
       console.log("fetched");
     } catch (error) {
@@ -21,7 +22,7 @@ export const DiaryProvider = ({ children }) => {
 
   const deleteEntry = async (id) => {
     try {
-      await axios.delete(`/api/diary-entries/${id}`);
+      await axios.delete(`${apiUrl}/api/diary-entries/${id}`);
       // Update entries state after successful deletion
       setEntries(entries.filter(entry => entry._id !== id));
     } catch (error) {
@@ -31,7 +32,7 @@ export const DiaryProvider = ({ children }) => {
 
   const fetchMedianMood = async () => {
     try {
-      const response = await axios.get('/api/diary-entries/average-mood');
+      const response = await axios.get(`${apiUrl}/api/diary-entries/average-mood`);
       setMedianMood(Math.round(response.data.medianMood));
     } catch (error) {
       console.error('Error fetching median mood:', error);

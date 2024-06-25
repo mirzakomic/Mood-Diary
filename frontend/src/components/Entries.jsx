@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { DiaryContext } from '../providers/DiaryProvider.jsx';
 
 const DiaryEntries = ({maxEntriesShown, selectedMood}) => {
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const { entries, fetchEntries } = useContext(DiaryContext);
   const [open, setOpen] = useState(false);
   const [deleteEntryId, setDeleteEntryId] = useState(null);
@@ -35,7 +36,7 @@ const DiaryEntries = ({maxEntriesShown, selectedMood}) => {
 
   const deleteEntry = async () => {
     try {
-      await axios.delete(`/api/diary-entries/${deleteEntryId}`);
+      await axios.delete(`${apiUrl}/api/diary-entries/${deleteEntryId}`);
       await fetchEntries(); // Re-fetch entries after deletion
       onCloseModal(); // Close modal after deletion
     } catch (error) {

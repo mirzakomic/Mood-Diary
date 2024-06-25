@@ -7,6 +7,7 @@ import SaveIcon from "../assets/img/save_icon.svg";
 import MoodBoard from "../components/MoodBoard";
 
 export default function Dashboard() {
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const { user } = useContext(UserContext);
   const { entries, fetchEntries, fetchMedianMood } = useContext(DiaryContext);
   const [title, setTitle] = useState('');
@@ -19,7 +20,7 @@ export default function Dashboard() {
     e.preventDefault();
     try {
       const newEntry = { title, content, mood, userId: user.id, weather, location };
-      await axios.post('/api/diary-entries/new', newEntry);
+      await axios.post(`${apiUrl}/api/diary-entries/new`, newEntry);
       fetchEntries(); // Refresh entries
       fetchMedianMood(); // Refresh median mood
     } catch (error) {

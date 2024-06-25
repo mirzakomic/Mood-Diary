@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 
 export default function Signup({ onSignupSuccess }) {
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export default function Signup({ onSignupSuccess }) {
     setSuccess(null);
     const data = new FormData(e.currentTarget);
     try {
-      await axios.post("/api/user/signup", data);
+      await axios.post(`${apiUrl}/api/user/signup`, data);
       setSuccess("Sign up successful! Redirecting to login page...");
       setTimeout(() => {
         onSignupSuccess();

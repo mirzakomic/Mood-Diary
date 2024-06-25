@@ -5,6 +5,7 @@ import axios from 'axios';
 import Button from '../components/Button';
 
 const DetailEntry = ({entries}) => {
+    const apiUrl = import.meta.env.VITE_API_BASE_URL;
     const { id } = useParams();
     const [entry, setEntry] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -22,7 +23,7 @@ const DetailEntry = ({entries}) => {
     useEffect(() => {
       const fetchEntry = async () => {
         try {
-          const response = await axios.get(`/api/diary-entries/${id}`);
+          const response = await axios.get(`${apiUrl}/api/diary-entries/${id}`);
           setEntry(response.data);
         } catch (error) {
           setError(error.response ? error.response.data : { error: 'An error occurred' });

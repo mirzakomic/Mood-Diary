@@ -6,6 +6,7 @@ import DiaryEntries from "../components/Entries";
 import Button from "../components/Button";
 
 const Diary = () => {
+    const apiUrl = import.meta.env.VITE_API_BASE_URL;
     const navigate = useNavigate();
     const { user, isLoggedIn } = useContext(UserContext);
     const [entries, setEntries] = useState([]);
@@ -31,7 +32,7 @@ const Diary = () => {
     
       const fetchEntries = async () => {
         try {
-          const response = await axios.get('/api/diary-entries/all');
+          const response = await axios.get(`${apiUrl}/api/diary-entries/all`);
           setEntries(response.data);
           console.log("fetch", entries);
         } catch (error) {

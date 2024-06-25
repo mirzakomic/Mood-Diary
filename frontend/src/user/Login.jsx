@@ -6,6 +6,7 @@ import { UserContext } from "../providers/UserContext";
 import Button from "../components/Button";
 
 export default function Login() {
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const { refetch } = useContext(UserContext);
   const nav = useNavigate();
   const [error, setError] = useState(null);
@@ -18,7 +19,7 @@ export default function Login() {
 
     const data = new FormData(e.currentTarget);
     try {
-      await axios.post("/api/user/login", data);
+      await axios.post(`${apiUrl}/api/user/login`, data);
       refetch();
       nav("/dashboard");
     } catch (e) {
