@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import path from "path";
 import cookieParser from "cookie-parser";
+import cors from 'cors';
 
 import { userRouter } from "./user/routes.js";
 import  diaryEntriesRouter from './user/diaryRoutes.js';
@@ -16,6 +17,7 @@ await mongoose.connection.syncIndexes();
 
 const PORT = process.env.PORT || 3000;
 const app = express();
+app.use(cors());
 
 const __dirname = path.resolve();
 const ReactAppDistPath = path.join(__dirname, 'frontend', 'dist');
@@ -26,13 +28,6 @@ app.use(cookieParser());
 app.use(express.static(ReactAppDistPath));
 app.use("/api/user", userRouter);
 app.use("/api/diary-entries", diaryEntriesRouter);
-
-/*
- * express.static matched auf jede Datei im angegebenen Ordner
- * und erstellt uns einen request handler for FREE
- * app.get("/",(req,res)=> res.sendFile("path/to/index.html"))
- * app.get("/index.html",(req,res)=> res.sendFile("path/to/index.html"))
- */
 
 app.get("/api/status", (req, res) => {
   res.send({ status: "Ok" });
@@ -45,5 +40,3 @@ app.get("/*", (req, res) => {
 app.listen(PORT, () => {
   console.log("Server running on Port: ", PORT);
 });
-
-// app.use('/diary-entries', diaryEntriesRouter);
