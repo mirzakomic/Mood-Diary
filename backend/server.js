@@ -17,12 +17,13 @@ await mongoose.connection.syncIndexes();
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-const ReactAppDistPath = new URL("../frontend/dist/", import.meta.url);
-const ReactAppIndex = new URL("../frontend/dist/index.html", import.meta.url);
+const __dirname = path.resolve();
+const ReactAppDistPath = path.join(__dirname, 'frontend', 'dist');
+const ReactAppIndex = path.join(ReactAppDistPath, 'index.html');
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static(ReactAppDistPath.pathname));
+app.use(express.static(ReactAppDistPath));
 app.use("/api/user", userRouter);
 app.use("/api/diary-entries", diaryEntriesRouter);
 
