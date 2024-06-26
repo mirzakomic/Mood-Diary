@@ -18,7 +18,6 @@ export const UserProvider = ({ children }) => {
       await axios.get(`${apiUrl}/api/user/logout`);
       setUser(null);
       setIsLoggedIn(false);
-      localStorage.removeItem('authToken');
       navigate("/");
     } catch (error) {
       console.error('Error during logout:', error);
@@ -27,9 +26,7 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
       axios
-        .get(`${apiUrl}/api/user/secure`, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
+        .get(`${apiUrl}/api/user/secure`)
         .then(({ data }) => {
           setUser(data);
           setIsLoggedIn(true);
