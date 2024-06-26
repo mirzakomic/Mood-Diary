@@ -26,9 +26,6 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
-
-    if (token) {
       axios
         .get(`${apiUrl}/api/user/secure`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -42,8 +39,7 @@ export const UserProvider = ({ children }) => {
           setUser(null);
           setIsLoggedIn(false);
         });
-    }
-  }, [shouldRefetch, apiUrl]);
+  }, [shouldRefetch]);
 
   return (
     <UserContext.Provider value={{ user, isLoggedIn, refetch, logout }}>

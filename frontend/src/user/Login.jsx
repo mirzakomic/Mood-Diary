@@ -20,8 +20,6 @@ export default function Login() {
     const data = new FormData(e.currentTarget);
     try {
       const response = await axios.post(`${apiUrl}/api/user/login`, data);
-      const token = response.data.token;
-      localStorage.setItem('authToken', token); // Store the token
       refetch();
       navigate("/dashboard");
     } catch (e) {

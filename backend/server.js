@@ -17,12 +17,8 @@ await mongoose.connection.syncIndexes();
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-const corsOptions = {
-  origin: 'https://mood-diary.onrender.com/',
-  credentials: true,
-};
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 const __dirname = path.resolve();
 const ReactAppDistPath = path.join(__dirname, 'frontend', 'dist');
