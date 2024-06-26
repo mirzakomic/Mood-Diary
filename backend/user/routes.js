@@ -1,6 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
-import User from "./UserModel.js";
+import User from "../models/userModel.js";
 import { authenticateToken, generateAccessToken } from "./authToken.js";
 import { createResetToken, validateResetToken } from "./ResetTokenModel.js";
 
@@ -102,6 +102,7 @@ userRouter.post("/login", multerMiddleware.none(), async (req, res) => {
 
   // If user exists and password is valid, generate access token
   const token = generateAccessToken({ email, name: user.name, id:user.id });
+  console.log(token);
 
   // Set the token in the response cookie
   res.cookie("auth", token, { httpOnly: true, maxAge: hoursInMillisec(4) });

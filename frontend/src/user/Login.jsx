@@ -19,6 +19,7 @@ export default function Login() {
     const data = new FormData(e.currentTarget);
     try {
       await axios.post("/api/user/login", data);
+      console.log(data, "has it worked?");
       refetch();
       nav("/dashboard");
     } catch (e) {

@@ -28,10 +28,12 @@ export const UserProvider = ({ children }) => {
       .get("/api/user/secure")
       .then(({ data }) => {
         setUser(data);
+        console.log(data, user);
         setIsLoggedIn(true); // Update isLoggedIn state
       })
       .catch((e) => {
         setUser(null);
+        console.log("doesnt work");
         setIsLoggedIn(false); // Update isLoggedIn state
       });
   }, [shouldRefetch]);
