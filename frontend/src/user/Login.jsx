@@ -8,7 +8,7 @@ import Button from "../components/Button";
 export default function Login() {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const { refetch } = useContext(UserContext);
-  const nav = useNavigate();
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
