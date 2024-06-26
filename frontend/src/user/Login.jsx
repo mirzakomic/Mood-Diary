@@ -19,14 +19,16 @@ export default function Login() {
 
     const data = new FormData(e.currentTarget);
     try {
-      await axios.post(`${apiUrl}/api/user/login`, data);
+      const response = await axios.post(`${apiUrl}/api/user/login`, data);
       const token = response.data.token;
       localStorage.setItem('authToken', token); // Store the token
       refetch();
-      nav("/dashboard");
+      navigate("/dashboard");
     } catch (e) {
       console.log(e);
-      setError("An Error occured, try again later");
+      setError("An Error occurred, try again later");
+    } finally {
+      setLoading(false);
     }
   };
 
