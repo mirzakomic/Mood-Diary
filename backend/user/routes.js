@@ -102,6 +102,7 @@ userRouter.post("/login", multerMiddleware.none(), async (req, res) => {
 
   // If user exists and password is valid, generate access token
   const token = generateAccessToken({ email, name: user.name, id:user.id });
+  res.json({ token });
 
   // Set the token in the response cookie
   res.cookie("auth", token, { httpOnly: true, maxAge: hoursInMillisec(4) });

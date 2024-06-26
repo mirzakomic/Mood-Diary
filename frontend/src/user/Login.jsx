@@ -20,6 +20,7 @@ export default function Login() {
     const data = new FormData(e.currentTarget);
     try {
       await axios.post(`${apiUrl}/api/user/login`, data);
+      localStorage.setItem('authToken', token); // Store the token
       refetch();
       nav("/dashboard");
     } catch (e) {
