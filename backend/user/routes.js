@@ -95,7 +95,7 @@ userRouter.post("/login", multerMiddleware.none(), async (req, res) => {
     return res.status(404).send({
       message: "Failed to login",
       error: {
-        message: "Password and E-Mail combination is wrong.",
+        message: "Wrong username and password combo.",
       },
     });
   }
