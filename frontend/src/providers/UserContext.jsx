@@ -18,6 +18,7 @@ export const UserProvider = ({ children }) => {
       await axios.get(`${apiUrl}/api/user/logout`);
       setUser(null);
       setIsLoggedIn(false);
+      localStorage.removeItem('authToken');
       navigate("/");
     } catch (error) {
       console.error('Error during logout:', error);
@@ -25,17 +26,24 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    axios
-      .get(`${apiUrl}/api/user/secure`)
-      .then(({ data }) => {
-        setUser(data);
-        setIsLoggedIn(true); // Update isLoggedIn state
-      })
-      .catch((e) => {
-        setUser(null);
-        setIsLoggedIn(false); // Update isLoggedIn state
-      });
-  }, [shouldRefetch]);
+    const token = localStorage.getItem("authToken");
+
+    if (token) {
+      axios
+        .get(`${apiUrl}/api/user/secure`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then(({ data }) => {
+          setUser(data);
+          setIsLoggedIn(true);
+        })
+        .catch((error) => {
+          console.error('Error fetching secure user data:', error);
+          setUser(null);
+          setIsLoggedIn(false);
+        });
+    }
+  }, [shouldRefetch, apiUrl]);
 
   return (
     <UserContext.Provider value={{ user, isLoggedIn, refetch, logout }}>
