@@ -24,6 +24,7 @@ export const UserProvider = ({ children }) => {
   
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
+        console.log("token ok in usCont");
       }
       return config;
     },
@@ -62,6 +63,7 @@ export const UserProvider = ({ children }) => {
     axiosInstance.get('/api/user/secure')
     .then(({ data }) => {
       setUser(data);
+      console.log("set user data:", data);
       setIsLoggedIn(true);
     })
     .catch((error) => {
