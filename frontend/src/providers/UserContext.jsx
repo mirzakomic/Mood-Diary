@@ -37,13 +37,11 @@ export const UserProvider = ({ children }) => {
   const logout = async () => {
     try {
       console.log("trying log out");
-      await axios.get(`${apiUrl}/api/user/logout`, {secure: true});
+      await axiosInstance.get(`/api/user/logout`);
+      console.log("cookie cleared, logging out");
       setUser(null);
-      console.log(user, "this is the user");
       setIsLoggedIn(false);
-      console.log("is logged in?", isLoggedIn);
       navigate("/");
-      console.log("redirected to homepage");
     } catch (error) {
       console.error('Error during logout:', error);
     }

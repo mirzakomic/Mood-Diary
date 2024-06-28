@@ -129,8 +129,14 @@ userRouter.post("/login", multerMiddleware.none(), async (req, res) => {
 });
 
 userRouter.get("/logout", (req, res) => {
-  res.clearCookie("auth", { path: "/" });
+  res.clearCookie("auth", {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'None',
+    path: '/',
+  });
   res.send("OK");
+  console.log(token, "is there a token");
   console.log("logout backend");
 });
 
