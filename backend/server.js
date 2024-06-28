@@ -50,7 +50,7 @@ app.get("/api/status", (req, res) => {
 });
 
 app.get("/*", (req, res) => {
-  res.sendFile(ReactAppIndex.pathname);
+  res.sendFile(ReactAppIndex);
 });
 
 app.listen(PORT, () => {
