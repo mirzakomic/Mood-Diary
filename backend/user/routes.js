@@ -123,7 +123,8 @@ userRouter.get("/secure", authenticateToken, async (req, res) => {
     }
     res.send({ email, name, id, idEntry });
   } catch (error) {
-    console.error(error);
+    console.error("secure throws an error",error);
+    console.log(email, id);
     res.status(500).send({ error: "Internal server error" });
   }
 });
