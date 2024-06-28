@@ -88,7 +88,7 @@ userRouter.post("/signup", multerMiddleware.none(), async (req, res) => {
 
 userRouter.post("/login", multerMiddleware.none(), async (req, res) => {
   const { email, password } = req.body;
-  onsole.log('Login attempt with email:', email);
+  console.log('Login attempt with email:', email);
   const user = await User.findOne({ email }).select("+hash").select("+salt").select("+name");
   
   // Check if user exists and password is valid
