@@ -107,7 +107,7 @@ userRouter.post("/login", multerMiddleware.none(), async (req, res) => {
   console.log(token);
 
   // Set the token in the response cookie
-  res.cookie("auth", token, { httpOnly: true, maxAge: hoursInMillisec(4), secure: true });
+  res.cookie("auth", token, { httpOnly: true, maxAge: hoursInMillisec(4), secure: true, domain: ".onrender.com" });
 
   // Send the user data back to the client, including the name and id
   res.send({ message: "Success", data: { ...user.toObject(), name: user.name, id: user.id } });

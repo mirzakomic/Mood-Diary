@@ -22,7 +22,7 @@ export default function Login() {
       await axios.post(`${apiUrl}/api/user/login`, data, { withCredentials: true });
       refetch();
       console.log("login started...");
-      // navigate("/dashboard");
+      navigate("/dashboard");
     } catch (e) {
       console.log(e);
       setError("An Error occurred, try again later");
