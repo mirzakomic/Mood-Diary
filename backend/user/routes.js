@@ -88,10 +88,12 @@ userRouter.post("/signup", multerMiddleware.none(), async (req, res) => {
 
 userRouter.post("/login", multerMiddleware.none(), async (req, res) => {
   const { email, password } = req.body;
+  onsole.log('Login attempt with email:', email);
   const user = await User.findOne({ email }).select("+hash").select("+salt").select("+name");
   
   // Check if user exists and password is valid
   if (!user || !user.verifyPassword(password)) {
+    console.log('Login failed: Invalid credentials');
     return res.status(404).send({
       message: "Failed to login",
       error: {
@@ -102,9 +104,10 @@ userRouter.post("/login", multerMiddleware.none(), async (req, res) => {
 
   // If user exists and password is valid, generate access token
   const token = generateAccessToken({ email, name: user.name, id:user.id });
+  console.log(token);
 
   // Set the token in the response cookie
-  res.cookie("auth", token, { httpOnly: true, maxAge: hoursInMillisec(4) });
+  res.cookie("auth", token, { httpOnly: true, maxAge: hoursInMillisec(4), secure: true });
 
   // Send the user data back to the client, including the name and id
   res.send({ message: "Success", data: { ...user.toObject(), name: user.name, id: user.id } });

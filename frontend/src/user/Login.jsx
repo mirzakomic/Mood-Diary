@@ -19,8 +19,9 @@ export default function Login() {
 
     const data = new FormData(e.currentTarget);
     try {
-      const response = await axios.post(`${apiUrl}/api/user/login`, data);
+      const response = axios.post(`${apiUrl}/api/user/login`, data, { withCredentials: true });
       refetch();
+      console.log("login started...");
       navigate("/dashboard");
     } catch (e) {
       console.log(e);
