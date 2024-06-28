@@ -23,7 +23,7 @@ const DetailEntry = ({entries}) => {
     useEffect(() => {
       const fetchEntry = async () => {
         try {
-          const response = await axios.get(`${apiUrl}/api/diary-entries/${id}`);
+          const response = await axios.get(`${apiUrl}/api/diary-entries/${id}`, { withCredentials: true });
           setEntry(response.data);
         } catch (error) {
           setError(error.response ? error.response.data : { error: 'An error occurred' });

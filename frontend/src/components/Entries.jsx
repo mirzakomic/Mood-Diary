@@ -36,7 +36,7 @@ const DiaryEntries = ({maxEntriesShown, selectedMood}) => {
 
   const deleteEntry = async () => {
     try {
-      await axios.delete(`${apiUrl}/api/diary-entries/${deleteEntryId}`);
+      await axios.delete(`${apiUrl}/api/diary-entries/${deleteEntryId}`, { withCredentials: true });
       await fetchEntries(); // Re-fetch entries after deletion
       onCloseModal(); // Close modal after deletion
     } catch (error) {

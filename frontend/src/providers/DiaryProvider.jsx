@@ -12,7 +12,7 @@ export const DiaryProvider = ({ children }) => {
 
   const fetchEntries = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/diary-entries/all`);
+      const response = await axios.get(`${apiUrl}/api/diary-entries/all`, { withCredentials: true });
       setEntries(response.data);
       console.log("fetched");
     } catch (error) {
@@ -22,7 +22,7 @@ export const DiaryProvider = ({ children }) => {
 
   const deleteEntry = async (id) => {
     try {
-      await axios.delete(`${apiUrl}/api/diary-entries/${id}`);
+      await axios.delete(`${apiUrl}/api/diary-entries/${id}`, { withCredentials: true });
       // Update entries state after successful deletion
       setEntries(entries.filter(entry => entry._id !== id));
     } catch (error) {
@@ -32,7 +32,7 @@ export const DiaryProvider = ({ children }) => {
 
   const fetchMedianMood = async () => {
     try {
-      const response = await axios.get(`${apiUrl}/api/diary-entries/average-mood`);
+      const response = await axios.get(`${apiUrl}/api/diary-entries/average-mood`, { withCredentials: true });
       setMedianMood(Math.round(response.data.medianMood));
     } catch (error) {
       console.error('Error fetching median mood:', error);

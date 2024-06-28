@@ -32,7 +32,7 @@ const Diary = () => {
     
       const fetchEntries = async () => {
         try {
-          const response = await axios.get(`${apiUrl}/api/diary-entries/all`);
+          const response = await axios.get(`${apiUrl}/api/diary-entries/all`, { withCredentials: true });
           setEntries(response.data);
           console.log("fetch", entries);
         } catch (error) {

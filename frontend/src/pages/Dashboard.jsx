@@ -20,7 +20,7 @@ export default function Dashboard() {
     e.preventDefault();
     try {
       const newEntry = { title, content, mood, userId: user.id, weather, location };
-      await axios.post(`${apiUrl}/api/diary-entries/new`, newEntry);
+      await axios.post(`${apiUrl}/api/diary-entries/new`, newEntry, { withCredentials: true });
       fetchEntries(); // Refresh entries
       fetchMedianMood(); // Refresh median mood
     } catch (error) {
