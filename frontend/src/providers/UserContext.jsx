@@ -71,7 +71,7 @@ export const UserProvider = ({ children }) => {
       setUser(null);
       setIsLoggedIn(false);
     });
-  }, []);
+  }, [shouldRefetch]);
 
   return (
     <UserContext.Provider value={{ user, isLoggedIn, refetch, logout }}>
