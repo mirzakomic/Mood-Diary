@@ -15,17 +15,21 @@ export const UserProvider = ({ children }) => {
     withCredentials: true, // Enable cookies
   });
 
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = getAuthToken();
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-});
+  axiosInstance.interceptors.request.use(
+    (config) => {
+      // Read token from cookies
+      const token = document.cookie.split('; ')
+        .find(row => row.startsWith('auth='))
+        ?.split('=')[1];
+  
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+  });
 
   const refetch = () => _refetch((prev) => !prev);
 
