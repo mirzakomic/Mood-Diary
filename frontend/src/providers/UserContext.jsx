@@ -65,11 +65,13 @@ export const UserProvider = ({ children }) => {
       setUser(data);
       console.log("set user data:", data);
       setIsLoggedIn(true);
+      navigate("/dashboard")
     })
     .catch((error) => {
       console.error('Error fetching secure user data:', error);
       setUser(null);
       setIsLoggedIn(false);
+      console.log("usercontext error");
     });
   }, [shouldRefetch]);
 
