@@ -36,6 +36,7 @@ export const UserProvider = ({ children }) => {
 
   const logout = async () => {
     try {
+      console.log("trying log out");
       await axios.get(`${apiUrl}/api/user/logout`, {secure: true});
       setUser(null);
       setIsLoggedIn(false);

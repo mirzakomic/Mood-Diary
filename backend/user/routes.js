@@ -131,6 +131,7 @@ userRouter.post("/login", multerMiddleware.none(), async (req, res) => {
 userRouter.get("/logout", (req, res) => {
   res.clearCookie("auth");
   res.send("OK");
+  console.log("logout backend");
 });
 
 userRouter.get("/secure", authenticateToken, async (req, res) => {
