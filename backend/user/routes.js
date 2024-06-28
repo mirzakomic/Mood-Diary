@@ -120,11 +120,12 @@ userRouter.get("/logout", (req, res) => {
 
 userRouter.get("/secure", authenticateToken, async (req, res) => {
   try {
-    const { email, name, id, idEntry } = req.user; 
+    const { email, name, id, idEntry, token } = req.user; 
+    console.log("secure trying", email, name, id, idEntry);
     if (!email || !name) {
       return res.status(400).send({ error: "Invalid token payload" });
     }
-    res.send({ email, name, id, idEntry });
+    res.send({ email, name, id, idEntry, token });
   } catch (error) {
     console.error("secure throws an error",error);
     console.log(email, id);
