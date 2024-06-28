@@ -9,13 +9,29 @@ export const UserProvider = ({ children }) => {
   const navigate = useNavigate();
   const [shouldRefetch, _refetch] = useState(true);
   const [user, setUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add isLoggedIn state
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const axiosInstance = axios.create({
+    baseURL: apiUrl,
+    withCredentials: true, // Enable cookies
+  });
+
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = getAuthToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+});
 
   const refetch = () => _refetch((prev) => !prev);
 
   const logout = async () => {
     try {
-      await axios.get(`${apiUrl}/api/user/logout`);
+      await axios.get(`${apiUrl}/api/user/logout`, {secure: true});
       setUser(null);
       setIsLoggedIn(false);
       navigate("/");
@@ -24,19 +40,31 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  // useEffect(() => {
+  //     axios
+  //       .get(`${apiUrl}/api/user/secure`, {secure: true})
+  //       .then(({ data }) => {
+  //         setUser(data);
+  //         setIsLoggedIn(true);
+  //       })
+  //       .catch((error) => {
+  //         console.error('Error fetching secure user data:', error);
+  //         setUser(null);
+  //         setIsLoggedIn(false);
+  //       });
+  // }, [shouldRefetch]);
+
   useEffect(() => {
-      axios
-        .get(`${apiUrl}/api/user/secure`)
-        .then(({ data }) => {
-          setUser(data);
-          setIsLoggedIn(true);
-        })
-        .catch((error) => {
-          console.error('Error fetching secure user data:', error);
-          setUser(null);
-          setIsLoggedIn(false);
-        });
-  }, [shouldRefetch]);
+    axiosInstance.get('/api/user/secure')
+      .then((response) => {
+        // Handle successful response
+        console.log('Secure data:', response.data);
+      })
+      .catch((error) => {
+        // Handle error
+        console.error('Error fetching secure data:', error);
+      });
+  }, []);
 
   return (
     <UserContext.Provider value={{ user, isLoggedIn, refetch, logout }}>
