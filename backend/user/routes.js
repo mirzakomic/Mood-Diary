@@ -107,9 +107,22 @@ userRouter.post("/login", multerMiddleware.none(), async (req, res) => {
   console.log(token);
 
   // Set the token in the response cookie
-  res.cookie("auth", token, { httpOnly: true, maxAge: hoursInMillisec(4), secure: true, domain: "mood-diary.onrender.com"});
+  // res.cookie("auth", token, { httpOnly: true, maxAge: hoursInMillisec(4), secure: true});
 
-  res.cookie("auth", token, { httpOnly: true, maxAge: hoursInMillisec(4), secure: true, domain: "mood-diary1.onrender.com"});
+  //* new approach for cookie
+  res.cookie("auth", token, {
+    // can only be accessed by server requests
+    httpOnly: true,
+    // path = where the cookie is valid
+    path: "/",
+    // secure = only send cookie over https
+    secure: true,
+    // sameSite = only send cookie if the request is coming from the same origin
+    sameSite: "none", // "strict" | "lax" | "none" (secure must be true)
+    // maxAge = how long the cookie is valid for in milliseconds
+    maxAge: hoursInMillisec(4), // 4 hours
+  });
+
 
   // Send the user data back to the client, including the name and id
   res.send({ message: "Success", data: { ...user.toObject(), name: user.name, id: user.id } });
