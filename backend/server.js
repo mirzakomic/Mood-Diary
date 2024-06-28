@@ -49,8 +49,8 @@ app.get("/api/status", (req, res) => {
   res.send({ status: "Ok" });
 });
 
-app.get("/*", (req, res) => {
-  res.sendFile(ReactAppIndex);
+app.get('/*', (req, res) => {
+  res.redirect(`https://mood-diary.onrender.com${req.originalUrl}`);
 });
 
 app.listen(PORT, () => {
