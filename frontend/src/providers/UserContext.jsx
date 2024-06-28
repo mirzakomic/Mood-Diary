@@ -60,14 +60,15 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     axiosInstance.get('/api/user/secure')
-      .then((response) => {
-        // Handle successful response
-        console.log('Secure data:', response.data);
-      })
-      .catch((error) => {
-        // Handle error
-        console.error('Error fetching secure data:', error);
-      });
+    .then(({ data }) => {
+      setUser(data);
+      setIsLoggedIn(true);
+    })
+    .catch((error) => {
+      console.error('Error fetching secure user data:', error);
+      setUser(null);
+      setIsLoggedIn(false);
+    });
   }, []);
 
   return (
