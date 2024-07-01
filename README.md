@@ -1,5 +1,6 @@
 # Mood-Diary
 A simple (?) web application to track your mood, post diary entries and make memories! 
+[Demo Preview](https://mood-diary.onrender.com/)
 
 ## Dashboard
 ![dashboard](https://i.ibb.co/B6mBks6/Bildschirmfoto-2024-07-01-um-12-12-52.png)\
@@ -26,3 +27,5 @@ PS: you can click on the title to get a single page view of the post.
 
 > [!IMPORTANT]
 > Attention: due to the free tier on render.com, the backend server can take up to 50 seconds to response to the first request. So when you try logging in, it will take a while for the server to fully run. Try to re-loggin after a minute.
+
+[Demo Preview](https://mood-diary.onrender.com/)
