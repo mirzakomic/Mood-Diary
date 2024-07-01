@@ -1,6 +1,5 @@
 # Mood-Diary
 A simple (?) web application to track your mood, post diary entries and make memories! 
-## Screenshots
 
 ## Dashboard
 ![dashboard](https://i.ibb.co/B6mBks6/Bildschirmfoto-2024-07-01-um-12-12-52.png)\
